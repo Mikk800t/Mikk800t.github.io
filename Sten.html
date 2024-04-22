@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sten Udregneren</title>
+    <style>
+        .home-button {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #4CAF50;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          padding: 10px 20px;
+          cursor: pointer;
+          font-family: Impact, sans-serif;
+        }
+
+        body {
+          font-family: Impact, sans-serif;
+          margin: 0;
+          padding: 20px;
+          background: radial-gradient(circle at 100%, white, #7D8F69 50%,  75%, #557153 75%);
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+
+        .container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        h1 {
+          color: #B7BAB2;
+          font-size: 24px;
+          margin-bottom: 20px;
+          width: 100%;
+          color: #333;
+        }
+
+        label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: bold;
+          width: 100%;
+          color: #333;
+        }
+
+        input[type="number"] {
+          flex-basis: 100%;
+          max-width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-bottom: 10px;
+          background-color: #B7BAB2;
+          color: #333;
+        }
+
+        input[readonly] {
+          background-color: #f9f9f9;
+          color: #333;
+        }
+
+        button {
+          flex-basis: 100%;
+          max-width: 100%;
+          padding: 10px 20px;
+          background-color: #4CAF50;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family: Impact, sans-serif;
+        }
+
+        button:hover {
+          background-color: #333;
+        }
+
+        #area,
+        #result,
+        #final-result,
+        #final-result-2,
+        #final-result-3,
+        #volume,
+        #weight,
+        #surface-area {
+          flex-basis: 100%;
+          max-width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-bottom: 10px;
+          background-color: #B7BAB2;
+          color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sten Udregneren</h1>
+    <div class="container">
+        <label for="height">Højde:</label>
+        <input type="number" id="height" name="height" required>
+        <br><br>
+        <label for="base">Bredde:</label>
+        <input type="number" id="base" name="base" required>
+        <br><br>
+        <button id="calculate">Udregn</button>
+        <br><br>
+        <label for="area">M2:</label>
+        <input type="number" id="area" name="area" readonly>
+        <br><br>
+        <label for="result">Halvstensmur:</label>
+        <input type="number" id="result" name="result" readonly>
+        <br><br>
+        <label for="weight">Helstensmur:</label>
+        <input type="number" id="weight" name="weight" readonly>
+        <br><br>
+        <label for="surface-area">Hulstensmur:</label>
+        <input type="number" id="surface-area" name="surface-area" readonly>
+        <br><br>
+        <label for="final-result">Mørtel opmuring:</label>
+        <input type="number" id="final-result" name="final-result" readonly>
+        <br><br>
+        <label for="final-result-2">Grovpuds:</label>
+        <input type="number" id="final-result-2" name="final-result-2" readonly>
+        <br><br>
+        <label for="final-result-3">Fugning:</label>
+        <input type="number" id="final-result-3" name="final-result-3" readonly>
+        <br><br>
+        <label for="volume">I alt:</label>
+        <input type="number" id="volume" name="volume" readonly>
+        <br><br>
+    </div>
+    <div class="home-button-container">
+        <button class="home-button">Hovedsiden</button>
+    </div>
+
+    <script>
+        const heightInput = document.getElementById('height');
+        const baseInput = document.getElementById('base');
+        const calculateButton = document.getElementById('calculate');
+        const areaInput = document.getElementById('area');
+        const resultInput = document.getElementById('result');
+        const finalResultInput = document.getElementById('final-result');
+        const finalResultInput2 = document.getElementById('final-result-2');
+        const finalResultInput3 = document.getElementById('final-result-3');
+        const volumeInput = document.getElementById('volume');
+        const weightInput = document.getElementById('weight');
+        const surfaceAreaInput = document.getElementById('surface-area');
+
+        calculateButton.addEventListener('click', () => {
+            const height = parseFloat(heightInput.value);
+            const base = parseFloat(baseInput.value);
+            const area = height * base;
+            areaInput.value = area;
+            const result = area * 65;
+            resultInput.value = result;
+            const finalResult = result * 0.7;
+            finalResultInput.value = finalResult;
+            const finalResult2 = area * 17;
+            finalResultInput2.value = finalResult2;
+            const finalResult3 = area * 4;
+            finalResultInput3.value = finalResult3;
+            const volume = finalResult + finalResult2 + finalResult3;
+            volumeInput.value = volume;
+            const weight = area * 130;
+            weightInput.value = weight;
+            const surfaceArea = area * 130;
+            surfaceAreaInput.value = surfaceArea;
+        });
+
+        const homeButton = document.querySelector('.home-button');
+        homeButton.addEventListener('click', () => {
+            window.location.href = 'Hovedside.html';
+        });
+    </script>
+</body>
+</html>

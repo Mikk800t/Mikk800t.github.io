@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flise Udregneren</title>
+    <style>
+        .home-button {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #7251B5;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          padding: 10px 20px;
+          cursor: pointer;
+          font-family: Impact, sans-serif;
+        }
+
+        body {
+          font-family: Impact, sans-serif;
+          margin: 0;
+          padding: 20px;
+          background: radial-gradient(circle at 100%, white, #C19EE0 50%,  75%, #B185DB 75%);
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+
+        .container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        h1 {
+          color: #B7BAB2;
+          font-size: 24px;
+          margin-bottom: 20px;
+          width: 100%;
+          color: #333;
+        }
+
+        label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: bold;
+          width: 100%;
+          color: #333;
+        }
+
+        input[type="number"] {
+          flex-basis: 100%;
+          max-width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-bottom: 10px;
+          background-color: #B7BAB2;
+          color: #333;
+        }
+
+        input[readonly] {
+          background-color: #f9f9f9;
+          color: #333;
+        }
+
+        button {
+          flex-basis: 100%;
+          max-width: 100%;
+          padding: 10px 20px;
+          background-color: #7251B5;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family: Impact, sans-serif;
+        }
+
+        button:hover {
+          background-color: #333;
+        }
+
+        #area,
+        #result,
+        #final-result,
+        #weight,
+        #surface-area {
+          flex-basis: 100%;
+          max-width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-bottom: 10px;
+          background-color: #B7BAB2;
+          color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flise Udregneren</h1>
+    <div class="container">
+        <label for="height">Højde:</label>
+        <input type="number" id="height" name="height" required><br><br>
+        <label for="base">Bredde:</label>
+        <input type="number" id="base" name="base" required><br><br>
+        <button id="calculate">Udregn</button><br><br>
+        <label for="area">M2:</label>
+        <input type="number" id="area" name="area" readonly><br><br>
+        <label for="result">15x15 Fliser:</label>
+        <input type="number" id="result" name="result" readonly><br><br>
+        <label for="weight">30x30 Fliser:</label>
+        <input type="number" id="weight" name="weight" readonly><br><br>
+        <label for="surface-area">Fliselim:</label>
+        <input type="number" id="surface-area" name="surface-area" readonly><br><br>
+        <label for="final-result">Fugemasse:</label>
+        <input type="number" id="final-result" name="final-result" readonly><br><br>
+        <div class="home-button-container">
+            <button class="home-button">Hovedsiden</button>
+        </div>
+    </div>
+
+    <script>
+        const heightInput = document.getElementById('height');
+        const baseInput = document.getElementById('base');
+        const calculateButton = document.getElementById('calculate');
+        const areaInput = document.getElementById('area');
+        const resultInput = document.getElementById('result');
+        const finalResultInput = document.getElementById('final-result');
+        const weightInput = document.getElementById('weight');
+        const surfaceAreaInput = document.getElementById('surface-area');
+
+        calculateButton.addEventListener('click', () => {
+            const height = parseFloat(heightInput.value);
+            const base = parseFloat(baseInput.value);
+            const area = height * base;
+            areaInput.value = area;
+            const result = area * 45;
+            resultInput.value = result;
+            const surfaceArea = area * 1.3;
+            surfaceAreaInput.value = surfaceArea;
+            const weight = area * 130;
+            weightInput.value = weight;
+            const finalResult = surfaceArea / 2;
+            finalResultInput.value = finalResult;
+        });
+
+        const homeButton = document.querySelector('.home-button');
+        homeButton.addEventListener('click', () => {
+            window.location.href = 'hovedside.html';
+        });
+    </script>
+</body>
+</html>
