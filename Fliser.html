@@ -19,7 +19,7 @@
         body {
           font-family: Impact, sans-serif;
           margin: 0;
-          padding: 20px;
+          padding: 0;
           background: radial-gradient(circle at 100%, white, #C19EE0 50%,  75%, #B185DB 75%);
           background-size: cover;
           background-repeat: no-repeat;
@@ -95,6 +95,29 @@
           background-color: #B7BAB2;
           color: #333;
         }
+
+        @media screen and (max-width: 600px) {
+          body {
+            padding: 20px;
+          }
+
+          h1 {
+            font-size: 24px;
+          }
+
+          input[type="number"],
+          #area,
+          #result,
+          #final-result,
+          #weight,
+          #surface-area {
+            font-size: 16px;
+          }
+
+          button {
+            font-size: 16px;
+          }
+        }
     </style>
 </head>
 <body>
@@ -105,6 +128,7 @@
         <label for="base">Bredde:</label>
         <input type="number" id="base" name="base" required><br><br>
         <button id="calculate">Udregn</button><br><br>
+        <button id="addFourPercent" disabled>Add 4%</button><br><br>
         <label for="area">M2:</label>
         <input type="number" id="area" name="area" readonly><br><br>
         <label for="result">15x15 Fliser:</label>
@@ -124,25 +148,48 @@
         const heightInput = document.getElementById('height');
         const baseInput = document.getElementById('base');
         const calculateButton = document.getElementById('calculate');
+        const addFourPercentButton = document.getElementById('addFourPercent');
         const areaInput = document.getElementById('area');
         const resultInput = document.getElementById('result');
         const finalResultInput = document.getElementById('final-result');
         const weightInput = document.getElementById('weight');
         const surfaceAreaInput = document.getElementById('surface-area');
 
+        let result = 0;
+        let finalResult = 0;
+        let weight = 0;
+        let surfaceArea = 0;
+        let addFourPercentDisabled = false;
+
         calculateButton.addEventListener('click', () => {
             const height = parseFloat(heightInput.value);
             const base = parseFloat(baseInput.value);
             const area = height * base;
             areaInput.value = area;
-            const result = area * 45;
+            result = area * 45;
             resultInput.value = result;
-            const surfaceArea = area * 1.3;
+            surfaceArea = area * 1.3;
             surfaceAreaInput.value = surfaceArea;
-            const weight = area * 90;
+            weight = area * 90;
             weightInput.value = weight;
-            const finalResult = surfaceArea / 2;
+            finalResult = surfaceArea / 2;
             finalResultInput.value = finalResult;
+            addFourPercentButton.disabled = false;
+        });
+
+        addFourPercentButton.addEventListener('click', () => {
+            if (!addFourPercentDisabled) {
+                result += result * 0.04;
+                surfaceArea += surfaceArea * 0.04;
+                weight += weight * 0.04;
+                finalResult += finalResult * 0.04;
+                resultInput.value = result;
+                surfaceAreaInput.value = surfaceArea;
+                weightInput.value = weight;
+                finalResultInput.value = finalResult;
+                addFourPercentButton.disabled = true;
+                addFourPercentDisabled = true;
+            }
         });
 
         const homeButton = document.querySelector('.home-button');
