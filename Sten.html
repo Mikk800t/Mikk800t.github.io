@@ -6,7 +6,7 @@
     body {
       font-family: Impact, sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       background: radial-gradient(circle at 100%, white, #7D8F69 50%,  75%, #557153 75%);
       background-size: cover;
       background-repeat: no-repeat;
@@ -81,8 +81,12 @@
     }
 
     @media screen and (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+
       .container {
-        padding: 0 10px;
+        padding: 0;
       }
 
       input[type="number"],
