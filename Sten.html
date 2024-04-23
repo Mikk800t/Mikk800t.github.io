@@ -1,124 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sten Udregneren</title>
-    <style>
-        .home-button {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          background-color: #4CAF50;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          padding: 10px 20px;
-          cursor: pointer;
-          font-family: Impact, sans-serif;
-        }
+  <title>Sten Udregneren</title>
+  <style>
+    body {
+      font-family: Impact, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: radial-gradient(circle at 100%, white, #7D8F69 50%,  75%, #557153 75%);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
 
-        body {
-          font-family: Impact, sans-serif;
-          margin: 0;
-          padding: 20px;
-          background: radial-gradient(circle at 100%, white, #7D8F69 50%,  75%, #557153 75%);
-          background-size: cover;
-          background-repeat: no-repeat;
-        }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
 
-        .container {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          max-width: 600px;
-          margin: 0 auto;
-        }
+    h1 {
+      color: #B7BAB2;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
 
-        h1 {
-          color: #B7BAB2;
-          font-size: 24px;
-          margin-bottom: 20px;
-          width: 100%;
-          color: #333;
-        }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #333;
+    }
 
-        label {
-          display: block;
-          margin-bottom: 10px;
-          font-weight: bold;
-          width: 100%;
-          color: #333;
-        }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      background-color: #B7BAB2;
+      color: #333;
+    }
 
-        input[type="number"] {
-          flex-basis: 100%;
-          max-width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          margin-bottom: 10px;
-          background-color: #B7BAB2;
-          color: #333;
-        }
+    input[readonly] {
+      background-color: #f9f9f9;
+      color: #333;
+    }
 
-        input[readonly] {
-          background-color: #f9f9f9;
-          color: #333;
-        }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: Impact, sans-serif;
+    }
 
-        .button-container {
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-        }
+    button:hover {
+      background-color: #333;
+    }
 
-        button {
-          flex-basis: 45%;
-          max-width: 45%;
-          padding: 10px 20px;
-          background-color: #4CAF50;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-family: Impact, sans-serif;
-        }
+    #area,
+    #result,
+    #final-result,
+    #final-result-2,
+    #final-result-3,
+    #volume,
+    #weight,
+    #surface-area {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      background-color: #B7BAB2;
+      color: #333;
+    }
 
-        button:hover {
-          background-color: #333;
-        }
+    @media screen and (max-width: 600px) {
+      .container {
+        padding: 0 10px;
+      }
 
-        #area,
-        #result,
-        #final-result,
-        #final-result-2,
-        #final-result-3,
-        #volume,
-        #weight,
-        #surface-area {
-          flex-basis: 100%;
-          max-width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          margin-bottom: 10px;
-          background-color: #B7BAB2;
-          color: #333;
-        }
-    </style>
+      input[type="number"],
+      #area,
+      #result,
+      #final-result,
+      #final-result-2,
+      #final-result-3,
+      #volume,
+      #weight,
+      #surface-area {
+        font-size: 16px;
+      }
+
+      button {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Sten Udregneren</h1>
     <div class="container">
+        <h1>Sten Udregneren</h1>
         <label for="height">Højde:</label>
         <input type="number" id="height" name="height" required>
         <br><br>
         <label for="base">Bredde:</label>
         <input type="number" id="base" name="base" required>
         <br><br>
-        <div class="button-container">
-          <button id="calculate">Udregn</button>
-          <button id="addFourPercentButton">Tilføj 4%  spild</button>
-        </div>
+        <button id="calculate">Udregn</button>
+        <button id="addFourPercentButton">Tilføj 4%  spild</button>
         <br><br>
         <label for="area">M2:</label>
         <input type="number" id="area" name="area" readonly>
@@ -184,10 +179,37 @@
             surfaceAreaInput.value = surfaceArea;
         });
 
+        let clicked = false;
+
         addFourPercentButton.addEventListener('click', () => {
-            const finalResult = parseFloat(finalResultInput.value);
-            const newFinalResult = finalResult * 1.04;
-            finalResultInput.value = newFinalResult.toFixed(2);
+            if (!clicked) {
+                const result = parseFloat(resultInput.value);
+                const finalResult = parseFloat(finalResultInput.value);
+                const finalResult2 = parseFloat(finalResultInput2.value);
+                const finalResult3 = parseFloat(finalResultInput3.value);
+                const volume = parseFloat(volumeInput.value);
+                const surfaceArea = parseFloat(surfaceAreaInput.value);
+                const weight = parseFloat(weightInput.value);
+
+                const newResult = result * 1.04;
+                const newFinalResult = finalResult * 1.04;
+                const newFinalResult2 = finalResult2 * 1.04;
+                const newFinalResult3 = finalResult3 * 1.04;
+                const newVolume = volume * 1.04;
+                const newSurfaceArea = surfaceArea * 1.04;
+                const newWeight = weight * 1.04;
+
+                resultInput.value = newResult.toFixed(2);
+                finalResultInput.value = newFinalResult.toFixed(2);
+                finalResultInput2.value = newFinalResult2.toFixed(2);
+                finalResultInput3.value = newFinalResult3.toFixed(2);
+                volumeInput.value = newVolume.toFixed(2);
+                surfaceAreaInput.value = newSurfaceArea.toFixed(2);
+                weightInput.value = newWeight.toFixed(2);
+
+                clicked = true;
+                addFourPercentButton.disabled = true;
+            }
         });
 
         const homeButton = document.querySelector('.home-button');
