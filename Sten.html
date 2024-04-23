@@ -65,9 +65,15 @@
           color: #333;
         }
 
+        .button-container {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+        }
+
         button {
-          flex-basis: 100%;
-          max-width: 100%;
+          flex-basis: 45%;
+          max-width: 45%;
           padding: 10px 20px;
           background-color: #4CAF50;
           color: #fff;
@@ -109,7 +115,10 @@
         <label for="base">Bredde:</label>
         <input type="number" id="base" name="base" required>
         <br><br>
-        <button id="calculate">Udregn</button>
+        <div class="button-container">
+          <button id="calculate">Udregn</button>
+          <button id="addFourPercentButton">Tilføj 4%  spild</button>
+        </div>
         <br><br>
         <label for="area">M2:</label>
         <input type="number" id="area" name="area" readonly>
@@ -144,9 +153,10 @@
         const heightInput = document.getElementById('height');
         const baseInput = document.getElementById('base');
         const calculateButton = document.getElementById('calculate');
+        const addFourPercentButton = document.getElementById('addFourPercentButton');
         const areaInput = document.getElementById('area');
         const resultInput = document.getElementById('result');
-        const finalResultInput = document.getElementById('final-result');
+       const finalResultInput = document.getElementById('final-result');
         const finalResultInput2 = document.getElementById('final-result-2');
         const finalResultInput3 = document.getElementById('final-result-3');
         const volumeInput = document.getElementById('volume');
@@ -172,6 +182,12 @@
             weightInput.value = weight;
             const surfaceArea = area * 130;
             surfaceAreaInput.value = surfaceArea;
+        });
+
+        addFourPercentButton.addEventListener('click', () => {
+            const finalResult = parseFloat(finalResultInput.value);
+            const newFinalResult = finalResult * 1.04;
+            finalResultInput.value = newFinalResult.toFixed(2);
         });
 
         const homeButton = document.querySelector('.home-button');
