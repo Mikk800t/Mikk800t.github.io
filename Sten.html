@@ -70,7 +70,7 @@
     #final-result-3,
     #volume,
     #weight,
-    #surface-area {
+    #bindere {
       width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
@@ -97,7 +97,7 @@
       #final-result-3,
       #volume,
       #weight,
-      #surface-area {
+      #bindere {
         font-size: 16px;
       }
 
@@ -128,9 +128,6 @@
         <label for="weight">Helstensmur:</label>
         <input type="number" id="weight" name="weight" readonly>
         <br><br>
-        <label for="surface-area">Hulstensmur:</label>
-        <input type="number" id="surface-area" name="surface-area" readonly>
-        <br><br>
         <label for="final-result">Mørtel opmuring:</label>
         <input type="number" id="final-result" name="final-result" readonly>
         <br><br>
@@ -142,6 +139,9 @@
         <br><br>
         <label for="volume">I alt:</label>
         <input type="number" id="volume" name="volume" readonly>
+        <br><br>
+        <label for="bindere">Bindere:</label>
+        <input type="number" id="bindere" name="bindere" readonly>
         <br><br>
     </div>
     <div class="home-button-container">
@@ -160,7 +160,7 @@
         const finalResultInput3 = document.getElementById('final-result-3');
         const volumeInput = document.getElementById('volume');
         const weightInput = document.getElementById('weight');
-        const surfaceAreaInput = document.getElementById('surface-area');
+        const bindereInput = document.getElementById('bindere');
 
         calculateButton.addEventListener('click', () => {
             const height = parseFloat(heightInput.value);
@@ -175,12 +175,12 @@
             finalResultInput2.value = finalResult2;
             const finalResult3 = area * 4;
             finalResultInput3.value = finalResult3;
-            const volume = finalResult + finalResult2 + finalResult3;
+            const volume = finalResult+ finalResult2 + finalResult3;
             volumeInput.value = volume;
             const weight = area * 130;
             weightInput.value = weight;
-            const surfaceArea = area * 130;
-            surfaceAreaInput.value = surfaceArea;
+            const bindere = area * 4;
+            bindereInput.value = bindere;
         });
 
         let clicked = false;
@@ -192,24 +192,24 @@
                 const finalResult2 = parseFloat(finalResultInput2.value);
                 const finalResult3 = parseFloat(finalResultInput3.value);
                 const volume = parseFloat(volumeInput.value);
-                const surfaceArea = parseFloat(surfaceAreaInput.value);
                 const weight = parseFloat(weightInput.value);
+                const bindere = parseFloat(bindereInput.value);
 
                 const newResult = result * 1.04;
                 const newFinalResult = finalResult * 1.04;
                 const newFinalResult2 = finalResult2 * 1.04;
                 const newFinalResult3 = finalResult3 * 1.04;
                 const newVolume = volume * 1.04;
-                const newSurfaceArea = surfaceArea * 1.04;
                 const newWeight = weight * 1.04;
+                const newBindere = bindere * 1.04;
 
                 resultInput.value = newResult.toFixed(2);
                 finalResultInput.value = newFinalResult.toFixed(2);
                 finalResultInput2.value = newFinalResult2.toFixed(2);
                 finalResultInput3.value = newFinalResult3.toFixed(2);
                 volumeInput.value = newVolume.toFixed(2);
-                surfaceAreaInput.value = newSurfaceArea.toFixed(2);
                 weightInput.value = newWeight.toFixed(2);
+                bindereInput.value = newBindere.toFixed(2);
 
                 clicked = true;
                 addFourPercentButton.disabled = true;
