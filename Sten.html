@@ -248,7 +248,7 @@
             bindereInput.value
           ];
 
-          const text = results.join('\n');
+          const text = results.join('-');
 
           const tempInput = document.createElement('input');
           tempInput.value = text;
@@ -257,7 +257,7 @@
           document.execCommand('copy');
           document.body.removeChild(tempInput);
 
-          alert('Kopierede til udklipsholderen!');
+          alert('Kopierede til udklipsholderen med mellemrum mellem resultaterne!');
         });
 
         const homeButton = document.querySelector('.home-button');
