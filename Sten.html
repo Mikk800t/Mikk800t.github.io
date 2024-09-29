@@ -101,7 +101,7 @@
     </style>
 </head>
 <body>
-    <h1>Sten Udregneren</h1>
+    <h1>Sten Udregneren </h1>
     <div class="container">
         <label for="height">Højde:</label>
         <input type="number" id="height" name="height" required>
@@ -109,7 +109,7 @@
         <label for="base">Bredde:</label>
         <input type="number" id="base" name="base" required>
         <br><br>
-        <button id="calculate">Udregn</button>
+        <button id="calculate">Udregn (medregnet 4% spild)</button>
         <br><br>
         <label for="area">M2:</label>
         <input type="number" id="area" name="area" readonly>
@@ -160,19 +160,19 @@
             const base = parseFloat(baseInput.value);
             const area = height * base;
             areaInput.value = area.toFixed(2);
-            const result = area * 65;
+            const result = area * 65 * 1.04;
             resultInput.value = result.toFixed(2);
-            const finalResult = result * 0.7;
+            const finalResult = result * 0.7 * 1.04;
             finalResultInput.value = finalResult.toFixed(2);
-            const finalResult2 = area * 17;
+            const finalResult2 = area * 17 * 1.04;
             finalResultInput2.value = finalResult2.toFixed(2);
-            const finalResult3 = area * 4;
+            const finalResult3 = area * 4 * 1.04;
             finalResultInput3.value = finalResult3.toFixed(2);
             const volume = finalResult + finalResult2 + finalResult3;
             volumeInput.value = volume.toFixed(2);
-            const weight = area * 130;
+            const weight = area * 130 * 1.04;
             weightInput.value = weight.toFixed(2);
-            const surfaceArea = area * 130;
+            const surfaceArea = area * 130 * 1.04;
             surfaceAreaInput.value = surfaceArea.toFixed(2);
         });
 
