@@ -1,133 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sten Udregneren</title>
-  <style>
-    body {
-      font-family: Impact, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(circle at 100%, white, #7D8F69 50%,  75%, #557153 75%);
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
+    <title>Sten Udregneren</title>
+    <style>
+        .home-button {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #4CAF50;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          padding: 10px 20px;
+          cursor: pointer;
+          font-family: Impact, sans-serif;
+        }
 
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 0 20px;
-      box-sizing: border-box;
-    }
+        body {
+          font-family: Impact, sans-serif;
+          margin: 0;
+          padding: 20px;
+          background: radial-gradient(circle at 100%, white, #7D8F69 50%,  75%, #557153 75%);
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
 
-    h1 {
-      color: #B7BAB2;
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: #333;
-    }
+        .container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          max-width: 600px;
+          margin: 0 auto;
+        }
 
-    label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: bold;
-      color: #333;
-    }
+        h1 {
+          color: #B7BAB2;
+          font-size: 24px;
+          margin-bottom: 20px;
+          width: 100%;
+          color: #333;
+        }
 
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      background-color: #B7BAB2;
-      color: #333;
-    }
+        label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: bold;
+          width: 100%;
+          color: #333;
+        }
 
-    input[readonly] {
-      background-color: #f9f9f9;
-      color: #333;
-    }
+        input[type="number"] {
+          flex-basis: 100%;
+          max-width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-bottom: 10px;
+          background-color: #B7BAB2;
+          color: #333;
+        }
 
-    button {
-      width: 100%;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: Impact, sans-serif;
-    }
+        input[readonly] {
+          background-color: #f9f9f9;
+          color: #333;
+        }
 
-    button:hover {
-      background-color: #333;
-    }
+        button {
+          flex-basis: 100%;
+          max-width: 100%;
+          padding: 10px 20px;
+          background-color: #4CAF50;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family: Impact, sans-serif;
+        }
 
-    #area,
-    #result,
-    #final-result,
-    #final-result-2,
-    #final-result-3,
-    #volume,
-    #weight,
-    #bindere {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      background-color: #B7BAB2;
-      color: #333;
-    }
+        button:hover {
+          background-color: #333;
+        }
 
-    .copy-button {
-      display: block;
-      margin: 0 auto;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-family: Impact, sans-serif;
-      margin-top: 20px;
-    }
-
-    .copy-button:hover {
-      background-color: #333;
-    }
-
-    @media screen and (max-width: 600px) {
-      body {
-        padding: 20px;
-      }
-
-      .container {
-        padding: 0;
-      }
-
-      input[type="number"],
-      #area,
-      #result,
-      #final-result,
-      #final-result-2,
-      #final-result-3,
-      #volume,
-      #weight,
-      #bindere {
-        font-size: 16px;
-      }
-
-      button,
-      .copy-button {
-        font-size: 16px;
-      }
-    }
-  </style>
+        #area,
+        #result,
+        #final-result,
+        #final-result-2,
+        #final-result-3,
+        #volume,
+        #weight,
+        #surface-area {
+          flex-basis: 100%;
+          max-width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-bottom: 10px;
+          background-color: #B7BAB2;
+          color: #333;
+        }
+    </style>
 </head>
 <body>
+    <h1>Sten Udregneren</h1>
     <div class="container">
-        <h1>Sten Udregneren</h1>
         <label for="height">Højde:</label>
         <input type="number" id="height" name="height" required>
         <br><br>
@@ -135,7 +110,6 @@
         <input type="number" id="base" name="base" required>
         <br><br>
         <button id="calculate">Udregn</button>
-        <button id="addFourPercentButton">Tilføj 4%  spild</button>
         <br><br>
         <label for="area">M2:</label>
         <input type="number" id="area" name="area" readonly>
@@ -146,6 +120,9 @@
         <label for="weight">Helstensmur:</label>
         <input type="number" id="weight" name="weight" readonly>
         <br><br>
+        <label for="surface-area">Hulstensmur:</label>
+        <input type="number" id="surface-area" name="surface-area" readonly>
+        <br><br>
         <label for="final-result">Mørtel opmuring:</label>
         <input type="number" id="final-result" name="final-result" readonly>
         <br><br>
@@ -155,13 +132,10 @@
         <label for="final-result-3">Fugning:</label>
         <input type="number" id="final-result-3" name="final-result-3" readonly>
         <br><br>
-        <label for="volume">I alt:</label>
-        <input type="number" id="volume" name="volume" readonly>
+		<label for="volume">I alt:</label>
+		<input type="number" id="volume" name="volume" readonly>
         <br><br>
-        <label for="bindere">Bindere:</label>
-        <input type="number" id="bindere" name="bindere" readonly>
-        <br><br>
-        <button class="copy-button" id="copyButton">Kopier resultater</button>
+        <button id="copy-all">Kopier alle resultater</button>
     </div>
     <div class="home-button-container">
         <button class="home-button">Hovedsiden</button>
@@ -171,93 +145,54 @@
         const heightInput = document.getElementById('height');
         const baseInput = document.getElementById('base');
         const calculateButton = document.getElementById('calculate');
-        const addFourPercentButton = document.getElementById('addFourPercentButton');
         const areaInput = document.getElementById('area');
         const resultInput = document.getElementById('result');
-       const finalResultInput = document.getElementById('final-result');
+        const finalResultInput = document.getElementById('final-result');
         const finalResultInput2 = document.getElementById('final-result-2');
         const finalResultInput3 = document.getElementById('final-result-3');
         const volumeInput = document.getElementById('volume');
         const weightInput = document.getElementById('weight');
-        const bindereInput = document.getElementById('bindere');
-        const copyButton = document.getElementById('copyButton');
+        const surfaceAreaInput = document.getElementById('surface-area');
+        const copyAllButton = document.getElementById('copy-all');
 
         calculateButton.addEventListener('click', () => {
             const height = parseFloat(heightInput.value);
             const base = parseFloat(baseInput.value);
             const area = height * base;
-            areaInput.value = area;
+            areaInput.value = area.toFixed(2);
             const result = area * 65;
-            resultInput.value = result;
+            resultInput.value = result.toFixed(2);
             const finalResult = result * 0.7;
-            finalResultInput.value = finalResult;
+            finalResultInput.value = finalResult.toFixed(2);
             const finalResult2 = area * 17;
-            finalResultInput2.value = finalResult2;
+            finalResultInput2.value = finalResult2.toFixed(2);
             const finalResult3 = area * 4;
-            finalResultInput3.value = finalResult3;
+            finalResultInput3.value = finalResult3.toFixed(2);
             const volume = finalResult + finalResult2 + finalResult3;
-            volumeInput.value = volume;
+            volumeInput.value = volume.toFixed(2);
             const weight = area * 130;
-            weightInput.value = weight;
-            const bindere = area * 4;
-            bindereInput.value = bindere;
+            weightInput.value = weight.toFixed(2);
+            const surfaceArea = area * 130;
+            surfaceAreaInput.value = surfaceArea.toFixed(2);
         });
 
-        let clicked = false;
-
-        addFourPercentButton.addEventListener('click', () => {
-            if (!clicked) {
-                const result = parseFloat(resultInput.value);
-                const finalResult = parseFloat(finalResultInput.value);
-                const finalResult2 = parseFloat(finalResultInput2.value);
-                const finalResult3 = parseFloat(finalResultInput3.value);
-                const volume = parseFloat(volumeInput.value);
-                constweight = parseFloat(weightInput.value);
-                const bindere = parseFloat(bindereInput.value);
-
-                const newResult = result * 1.04;
-                const newFinalResult = finalResult * 1.04;
-                const newFinalResult2 = finalResult2 * 1.04;
-                const newFinalResult3 = finalResult3 * 1.04;
-                const newVolume = volume * 1.04;
-                const newWeight = weight * 1.04;
-                const newBindere = bindere * 1.04;
-
-                resultInput.value = newResult.toFixed(2);
-                finalResultInput.value = newFinalResult.toFixed(2);
-                finalResultInput2.value = newFinalResult2.toFixed(2);
-                finalResultInput3.value = newFinalResult3.toFixed(2);
-                volumeInput.value = newVolume.toFixed(2);
-                weightInput.value = newWeight.toFixed(2);
-                bindereInput.value = newBindere.toFixed(2);
-
-                clicked = true;
-                addFourPercentButton.disabled = true;
-            }
-        });
-
-        copyButton.addEventListener('click', () => {
+        copyAllButton.addEventListener('click', () => {
           const results = [
-            areaInput.value,
-            resultInput.value,
-            finalResultInput.value,
-            finalResultInput2.value,
-            finalResultInput3.value,
-            volumeInput.value,
-            weightInput.value,
-            bindereInput.value
+            `Beregning af mørtelforbrug`,
+            `M2: ${areaInput.value}`,
+            `Halvstensmur: ${resultInput.value}`,
+            `Helstensmur: ${weightInput.value}`,
+            `Hulstensmur: ${surfaceAreaInput.value}`,
+            `Opmuring: 700/1000=0,7x${resultInput.value} x1,04 = ${finalResultInput.value} liter`,
+            `Grovpuds: 1700/100=17x${areaInput.value} x1,04 = ${finalResultInput2.value} liter`,
+            `Fugning: 400/100=4x${areaInput.value} x1,04 = ${finalResultInput3.value} liter`,
+            `Mørtelforbrug i alt: ${finalResultInput.value}+${finalResultInput2.value}+${finalResultInput3.value} = ${volumeInput.value} liter`,
           ];
 
-          const text = results.join('-');
+          const copiedText = results.join('\n');
 
-          const tempInput = document.createElement('input');
-          tempInput.value = text;
-          document.body.appendChild(tempInput);
-          tempInput.select();
-          document.execCommand('copy');
-          document.body.removeChild(tempInput);
-
-          alert('Kopierede til udklipsholderen med mellemrum mellem resultaterne!');
+          navigator.clipboard.writeText(copiedText);
+          alert('Alle resultater kopieret!');
         });
 
         const homeButton = document.querySelector('.home-button');
