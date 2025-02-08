@@ -1,201 +1,327 @@
 <!DOCTYPE html>
-<html>
+<html lang="da">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
     <title>Flise Udregneren</title>
     <style>
-        .home-button {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          background-color: #7251B5;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          padding: 10px 20px;
-          cursor: pointer;
-          font-family: Impact, sans-serif;
-        }
-
+        /* Body og baggrund */
         body {
-          font-family: Impact, sans-serif;
-          margin: 0;
-          padding: 0;
-          background: radial-gradient(circle at 100%, white, #C19EE0 50%,  75%, #B185DB 75%);
-          background-size: cover;
-          background-repeat: no-repeat;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100%;
+            color: #0b4f6c;
+            position: relative;
+            overflow: auto; /* Sørger for, at man kan rulle */
+            flex-direction: column;
+            zoom: 0.6; /* Zoomer endnu mere ud */
         }
 
+        /* Baggrundsbillede */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('55.jpg') center/cover no-repeat;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        /* Gradient-overlay */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 100%, white, #4F4FDB 50%, #4F4FDB 75%, #4F4FDB 75%);
+            z-index: 2;
+            mix-blend-mode: screen;
+        }
+
+        /* Container for indhold */
         .container {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          max-width: 600px;
-          margin: 0 auto;
+            position: relative;
+            z-index: 3;
+            background-color: #FFFFFFCC;
+            padding: 15px 30px; /* Mindre padding */
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            margin: 20px;
+            box-sizing: border-box;
         }
 
         h1 {
-          color: #B7BAB2;
-          font-size: 24px;
-          margin-bottom: 20px;
-          width: 100%;
-          color: #333;
+            text-align: center;
+            font-size: 28px; /* Mindre fontstørrelse */
+            margin-bottom: 25px;
+            color: #0b4f6c;
+            font-weight: 600;
+            font-family: Impact, sans-serif;
         }
 
         label {
-          display: block;
-          margin-bottom: 10px;
-          font-weight: bold;
-          width: 100%;
-          color: #333;
+            font-size: 16px; /* Mindre fontstørrelse */
+            margin-bottom: 6px; /* Mindre margin */
+            display: block;
+            color: #0b4f6c;
+            font-weight: 500;
         }
 
-        input[type="number"] {
-          flex-basis: 100%;
-          max-width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          margin-bottom: 10px;
-          background-color: #B7BAB2;
-          color: #333;
+        input[type="number"], 
+        select {
+            width: 100%;
+            padding: 12px; /* Mindre padding */
+            margin: 10px 0; /* Mindre margin */
+            border-radius: 8px;
+            border: 2px solid #0b4f6c;
+            font-size: 14px; /* Mindre fontstørrelse */
+            color: #0b4f6c;
+            background-color: #FFFFFFCC;
+        }
+
+        input[type="number"]:focus, 
+        select:focus {
+            outline: none;
+            border-color: #01baef;
         }
 
         input[readonly] {
-          background-color: #f9f9f9;
-          color: #333;
+            background-color: #f1f1f1;
         }
 
-        button {
-          flex-basis: 100%;
-          max-width: 100%;
-          padding: 10px 20px;
-          background-color: #7251B5;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-family: Impact, sans-serif;
+        .result-field {
+            margin-top: 12px;
         }
 
-        button:hover {
-          background-color: #333;
+        .result-field label {
+            font-weight: bold;
+            color: #0b4f6c;
         }
 
-        #area,
-        #result,
-        #final-result,
-        #weight,
-        #surface-area {
-          flex-basis: 100%;
-          max-width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          margin-bottom: 10px;
-          background-color: #B7BAB2;
-          color: #333;
+        .info-box {
+            margin-top: 15px; /* Mindre margin */
+            padding: 15px; /* Mindre padding */
+            border-radius: 10px;
+            color: #0b4f6c;
+            background-color: #FFFFFFCC;
         }
 
-        @media screen and (max-width: 600px) {
-          body {
-            padding: 20px;
-          }
+        .info-box p {
+            margin: 3px 0; /* Mindre margin */
+            font-size: 14px; /* Mindre fontstørrelse */
+        }
 
-          h1 {
-            font-size: 24px;
-          }
+        /* Knapper */
+        .button {
+            background-color: #4F4FDB;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px; /* Mindre padding */
+            font-size: 16px; /* Mindre fontstørrelse */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-          input[type="number"],
-          #area,
-          #result,
-          #final-result,
-          #weight,
-          #surface-area {
-            font-size: 16px;
-          }
+        .button:hover {
+            background-color: #0b4f6c;
+        }
 
-          button {
-            font-size: 16px;
-          }
+        /* Hovedsiden-knap nederst til højre */
+        .home-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 4;
+        }
+
+        /* Responsiv tilpasning */
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            .container {
+                padding: 15px;
+                margin: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Flise Udregneren</h1>
+
     <div class="container">
-        <label for="height">Højde:</label>
-        <input type="number" id="height" name="height" required><br><br>
-        <label for="base">Bredde:</label>
-        <input type="number" id="base" name="base" required><br><br>
-        <button id="calculate">Udregn</button><br><br>
-        <button id="addFourPercent" disabled>Add 4%</button><br><br>
-        <label for="area">M2:</label>
-        <input type="number" id="area" name="area" readonly><br><br>
-        <label for="result">15x15 Fliser:</label>
-        <input type="number" id="result" name="result" readonly><br><br>
-        <label for="weight">30x30 Fliser:</label>
-        <input type="number" id="weight" name="weight" readonly><br><br>
-        <label for="surface-area">Fliselim:</label>
-        <input type="number" id="surface-area" name="surface-area" readonly><br><br>
-        <label for="final-result">Fugemasse:</label>
-        <input type="number" id="final-result" name="final-result" readonly><br><br>
-        <div class="home-button-container">
-            <button class="home-button">Hovedsiden</button>
+        <h1>Flise Udregneren</h1>
+        
+        <label for="height">Højde (m):</label>
+        <input type="number" id="height" placeholder="Højde i meter" />
+
+        <label for="base">Bredde (m):</label>
+        <input type="number" id="base" placeholder="Bredde i meter" />
+
+        <label for="tileSize">Flisestørrelse:</label>
+        <select id="tileSize">
+            <option value="45">15x15 cm (45 stk/m²)</option>
+            <option value="25">20x20 cm (25 stk/m²)</option>
+            <option value="6">30x60 cm (6 stk/m²)</option>
+            <option value="5">60x60 cm (5 stk/m²)</option>
+            <option value="14">30x30 cm (14 stk/m²)</option>
+        </select>
+		
+		        <!-- Dropdown for fugemasse pr. m² -->
+        <label for="groutAmount">Fugemasse pr. m² (kg):</label>
+        <select id="groutAmount">
+            <option value="0.3">0,3 kg/m²</option>
+            <option value="0.5">0,5 kg/m²</option>
+            <option value="0.8">0,8 kg/m²</option>
+            <option value="1.0">1,0 kg/m²</option>
+            <option value="1.5">1,5 kg/m²</option>
+            <option value="1.8">1,8 kg/m²</option>
+        </select>
+
+        <!-- Spild som brugeren kan skrive procent -->
+        <label for="waste">Spild (%)</label>
+        <input type="number" id="waste" placeholder="Skriv spild i procent" />
+
+        <label for="area">Areal (m²):</label>
+        <input type="number" id="area" readonly />
+
+        <label for="tiles">Antal fliser:</label>
+        <input type="number" id="tiles" readonly />
+
+        <label for="weight">Fliselim (kg):</label>
+        <input type="number" id="weight" readonly />
+
+        <label for="final-result">Fugemasse (kg):</label>
+        <input type="number" id="final-result" readonly />
+
+
+        <!-- Kopier knap til fugemasse og tandspartel -->
+        <button id="copy-all" class="button">Kopier alle resultater</button>
+        <button id="save-csv" class="button">Gem som CSV</button>
+
+        <!-- Information om tandspartel og lim -->
+        <div class="info-box">
+            <p><strong>Flisestørrelse = Hvilken tandspartel du skal bruge:</strong></p>
+            <p>15x15 cm = 6x6 mm</p>
+            <p>20x20 cm = 8x8 mm</p>
+            <p>30x30 cm = 8x8 mm</p>
+            <p>30x60 cm = 10x10 mm</p>
+            <p>60x60 cm = 10x10 mm</p>
+
+            <p><strong>Hvor meget lim du skal bruge afhænger af tandspartel:</strong></p>
+            <p>6x6 mm = ca. 1,2 kg/m²</p>
+            <p>8x8 mm = ca. 1,8 kg/m²</p>
+            <p>10x10 mm = ca. 2,5 kg/m²</p>
         </div>
+
+    </div>
+
+    <!-- Hovedsiden-knap nederst til højre -->
+    <div class="home-button-container">
+        <button class="button">Hovedsiden</button>
     </div>
 
     <script>
         const heightInput = document.getElementById('height');
         const baseInput = document.getElementById('base');
-        const calculateButton = document.getElementById('calculate');
-        const addFourPercentButton = document.getElementById('addFourPercent');
+        const tileSizeSelect = document.getElementById('tileSize');
         const areaInput = document.getElementById('area');
-        const resultInput = document.getElementById('result');
-        const finalResultInput = document.getElementById('final-result');
+        const tilesInput = document.getElementById('tiles');
         const weightInput = document.getElementById('weight');
-        const surfaceAreaInput = document.getElementById('surface-area');
+        const finalResultInput = document.getElementById('final-result');
+        const wasteInput = document.getElementById('waste');
+        const groutAmountSelect = document.getElementById('groutAmount');
 
-        let result = 0;
-        let finalResult = 0;
-        let weight = 0;
-        let surfaceArea = 0;
-        let addFourPercentDisabled = false;
-
-        calculateButton.addEventListener('click', () => {
+        function calculate() {
             const height = parseFloat(heightInput.value);
             const base = parseFloat(baseInput.value);
-            const area = height * base;
-            areaInput.value = area;
-            result = area * 45;
-            resultInput.value = result;
-            surfaceArea = area * 1.3;
-            surfaceAreaInput.value = surfaceArea;
-            weight = area * 22,5;
-            weightInput.value = weight;
-            finalResult = surfaceArea / 2;
-            finalResultInput.value = finalResult;
-            addFourPercentButton.disabled = false;
-        });
 
-        addFourPercentButton.addEventListener('click', () => {
-            if (!addFourPercentDisabled) {
-                result += result * 0.04;
-                surfaceArea += surfaceArea * 0.04;
-                weight += weight * 0.04;
-                finalResult += finalResult * 0.04;
-                resultInput.value = result;
-                surfaceAreaInput.value = surfaceArea;
-                weightInput.value = weight;
-                finalResultInput.value = finalResult;
-                addFourPercentButton.disabled = true;
-                addFourPercentDisabled = true;
+            if (isNaN(height) || isNaN(base) || height <= 0 || base <= 0) {
+                areaInput.value = '';
+                tilesInput.value = '';
+                weightInput.value = '';
+                finalResultInput.value = '';
+                wasteInput.value = '';
+                return;
             }
+
+            const area = height * base;
+            areaInput.value = area.toFixed(2);
+
+            const tilesPerM2 = parseFloat(tileSizeSelect.value);
+
+            const tiles = area * tilesPerM2;
+            tilesInput.value = tiles.toFixed(0);
+
+            let weightPerM2 = 1.2;
+            if (tileSizeSelect.value == 25) {
+                weightPerM2 = 1.8;
+            } else if (tileSizeSelect.value == 6) {
+                weightPerM2 = 2.5;
+            }
+
+            const weight = area * weightPerM2;
+            weightInput.value = weight.toFixed(1);
+
+            const finalResult = area * 0.25; // For simple calculation example
+            finalResultInput.value = finalResult.toFixed(1);
+
+            // Hvis brugeren har indtastet noget spild, brug det som procent
+            const userWaste = parseFloat(wasteInput.value);
+            let wasteMultiplier = 1 + (isNaN(userWaste) ? 0 : userWaste / 100); // Hvis ikke indtastet, så 10%
+
+            // Anvend spild-faktoren på fliser, lim og fugemasse
+            tilesInput.value = (tiles * wasteMultiplier).toFixed(0);
+            weightInput.value = (weight * wasteMultiplier).toFixed(1);
+            finalResultInput.value = (finalResult * wasteMultiplier).toFixed(1);
+
+            // Beregn fugemasse ved at gange med det valgte antal kg/m²
+            const groutAmountPerM2 = parseFloat(groutAmountSelect.value);
+            const groutAmount = area * groutAmountPerM2;
+            finalResultInput.value = (groutAmount * wasteMultiplier).toFixed(1); // Fugemassen også med spild
+        }
+
+        heightInput.addEventListener('input', calculate);
+        baseInput.addEventListener('input', calculate);
+        tileSizeSelect.addEventListener('change', calculate);
+        wasteInput.addEventListener('input', calculate);
+        groutAmountSelect.addEventListener('change', calculate);
+
+        document.getElementById('copy-all').addEventListener('click', function() {
+            areaInput.select();
+            document.execCommand('copy');
+            tilesInput.select();
+            document.execCommand('copy');
+            weightInput.select();
+            document.execCommand('copy');
+            finalResultInput.select();
+            document.execCommand('copy');
+            wasteInput.select();
+            document.execCommand('copy');
+            alert('Alle resultater kopieret!');
         });
 
-        const homeButton = document.querySelector('.home-button');
-        homeButton.addEventListener('click', () => {
-            window.location.href = 'Hovedside.html';
+        document.getElementById('save-csv').addEventListener('click', function() {
+            const csvContent = `Areal,Fliser,Fliselim,Fugemasse,Spild\n${areaInput.value},${tilesInput.value},${weightInput.value},${finalResultInput.value},${wasteInput.value}`;
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'flise_resultater.csv';
+            link.click();
         });
+
     </script>
 </body>
 </html>
