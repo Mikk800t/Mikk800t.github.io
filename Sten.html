@@ -1,150 +1,232 @@
 <!DOCTYPE html>
-<html>
+<html lang="da">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sten Udregneren</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
-        .home-button {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          background-color: #4CAF50;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          padding: 10px 20px;
-          cursor: pointer;
-          font-family: Impact, sans-serif;
-        }
+        /* Body og baggrund */
+		body {
+			font-family: 'Poppins', sans-serif;
+			background-color: #88bb92; /* Ensfarvet baggrund */
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			color: #fbfbff;
+		}
 
-        body {
-          font-family: Impact, sans-serif;
-          margin: 0;
-          padding: 20px;
-          background: radial-gradient(circle at 100%, white, #7D8F69 50%,  75%, #557153 75%);
-          background-size: cover;
-          background-repeat: no-repeat;
-        }
 
+        /* Container for inputfelter og resultater */
         .container {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          max-width: 600px;
-          margin: 0 auto;
+            background-color: #fbfbff;
+            padding: 25px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            margin: auto;
         }
 
         h1 {
-          color: #B7BAB2;
-          font-size: 24px;
-          margin-bottom: 20px;
-          width: 100%;
-          color: #333;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #0b4f6c;
+            font-weight: 600;
         }
 
+        /* Label og inputfelter */
         label {
-          display: block;
-          margin-bottom: 10px;
-          font-weight: bold;
-          width: 100%;
-          color: #333;
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: block;
+            color: #0b4f6c;
+            font-weight: 500;
         }
 
-        input[type="number"] {
-          flex-basis: 100%;
-          max-width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          margin-bottom: 10px;
-          background-color: #B7BAB2;
-          color: #333;
+        input[type="number"], 
+        button {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border: 2px solid #0b4f6c;
+            font-size: 16px;
+            color: #0b4f6c;
+            background-color: #fbfbff;
+        }
+
+        input[type="number"]:focus, 
+        button:focus {
+            outline: none;
+            border-color: #01baef;
         }
 
         input[readonly] {
-          background-color: #f9f9f9;
-          color: #333;
+            background-color: #f1f1f1;
         }
 
+        /* Knapper */
         button {
-          flex-basis: 100%;
-          max-width: 100%;
-          padding: 10px 20px;
-          background-color: #4CAF50;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-family: Impact, sans-serif;
+            background-color: #20bf55;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-          background-color: #333;
+            background-color: #0b4f6c;
         }
 
-        #area,
-        #result,
-        #final-result,
-        #final-result-2,
-        #final-result-3,
-        #volume,
-        #weight,
-        #surface-area {
-          flex-basis: 100%;
-          max-width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          margin-bottom: 10px;
-          background-color: #B7BAB2;
-          color: #333;
+        /* Spild valg knapper */
+        .spillage-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .spillage-button {
+            background-color: #fbfbff;
+            color: #0b4f6c;
+            border: 2px solid #0b4f6c;
+            padding: 14px;
+            width: 24%;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .spillage-button:hover {
+            background-color: #94ddbc;
+            color: white;
+        }
+
+        .spillage-button.selected {
+            background-color: #94ddbc;
+            color: #fbfbff;
+        }
+
+        /* Resultatfelter */
+        .result-field {
+            margin-top: 15px;
+        }
+
+        .result-field label {
+            font-weight: bold;
+            color: #0b4f6c;
+        }
+
+        /* Home button */
+        .home-button-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+        }
+
+        .home-button {
+            background-color: #20bf55;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #0b4f6c;
         }
     </style>
 </head>
 <body>
-    <h1>Sten Udregneren </h1>
+
     <div class="container">
+        <h1>Sten Udregneren</h1>
+
+        <!-- Input felter -->
         <label for="height">Højde:</label>
-        <input type="number" id="height" name="height" required>
-        <br><br>
+        <input type="number" id="height" name="height" placeholder="Indtast højde">
+
         <label for="base">Bredde:</label>
-        <input type="number" id="base" name="base" required>
-        <br><br>
-        <button id="calculate">Udregn (medregnet 4% spild)</button>
-        <br><br>
-        <label for="area">M2:</label>
-        <input type="number" id="area" name="area" readonly>
-        <br><br>
-        <label for="result">Halvstensmur:</label>
-        <input type="number" id="result" name="result" readonly>
-        <br><br>
-        <label for="weight">Helstensmur:</label>
-        <input type="number" id="weight" name="weight" readonly>
-        <br><br>
-        <label for="surface-area">Hulstensmur:</label>
-        <input type="number" id="surface-area" name="surface-area" readonly>
-        <br><br>
-        <label for="final-result">Mørtel opmuring:</label>
-        <input type="number" id="final-result" name="final-result" readonly>
-        <br><br>
-        <label for="final-result-2">Grovpuds:</label>
-        <input type="number" id="final-result-2" name="final-result-2" readonly>
-        <br><br>
-        <label for="final-result-3">Fugning:</label>
-        <input type="number" id="final-result-3" name="final-result-3" readonly>
-        <br><br>
-		<label for="volume">I alt:</label>
-		<input type="number" id="volume" name="volume" readonly>
-        <br><br>
+        <input type="number" id="base" name="base" placeholder="Indtast bredde">
+
+        <!-- Spildvalg knapper -->
+        <div class="spillage-options">
+            <button class="spillage-button" data-spillage="0.04">4% Spild</button>
+            <button class="spillage-button" data-spillage="0.075">7,5% Spild</button>
+            <button class="spillage-button" data-spillage="0.1">10% Spild</button>
+            <button class="spillage-button" data-spillage="0.15">15% Spild</button>
+        </div>
+
+        <!-- Resultatfelter -->
+        <div class="result-field">
+            <label for="area">M2:</label>
+            <input type="number" id="area" name="area" readonly>
+        </div>
+
+        <div class="result-field">
+            <label for="result">Halvstensmur:</label>
+            <input type="number" id="result" name="result" readonly>
+        </div>
+
+        <div class="result-field">
+            <label for="weight">Helstensmur:</label>
+            <input type="number" id="weight" name="weight" readonly>
+        </div>
+
+        <div class="result-field">
+            <label for="surface-area">Hulstensmur:</label>
+            <input type="number" id="surface-area" name="surface-area" readonly>
+        </div>
+
+        <div class="result-field">
+            <label for="final-result">Mørtel opmuring:</label>
+            <input type="number" id="final-result" name="final-result" readonly>
+        </div>
+
+        <div class="result-field">
+            <label for="final-result-2">Grovpuds:</label>
+            <input type="number" id="final-result-2" name="final-result-2" readonly>
+        </div>
+
+        <div class="result-field">
+            <label for="final-result-3">Fugning:</label>
+            <input type="number" id="final-result-3" name="final-result-3" readonly>
+        </div>
+
+        <div class="result-field">
+            <label for="volume">I alt:</label>
+            <input type="number" id="volume" name="volume" readonly>
+        </div>
+
+        <div class="result-field">
+            <label for="Bindere">Bindere:</label>
+            <input type="number" id="Bindere" name="Bindere" readonly>
+        </div>
+
+        <!-- Knapper -->
         <button id="copy-all">Kopier alle resultater</button>
+        <button id="save-csv">Gem som CSV</button>
     </div>
+
     <div class="home-button-container">
-        <button class="home-button">Hovedsiden</button>
+        <button class="home-button">Hjem</button>
     </div>
 
     <script>
+        let spillageFactor = 0;  // Standard er ingen spild før valg af procent
+
         const heightInput = document.getElementById('height');
         const baseInput = document.getElementById('base');
-        const calculateButton = document.getElementById('calculate');
         const areaInput = document.getElementById('area');
         const resultInput = document.getElementById('result');
         const finalResultInput = document.getElementById('final-result');
@@ -153,52 +235,97 @@
         const volumeInput = document.getElementById('volume');
         const weightInput = document.getElementById('weight');
         const surfaceAreaInput = document.getElementById('surface-area');
+        const BindereInput = document.getElementById('Bindere');
         const copyAllButton = document.getElementById('copy-all');
+        const saveCsvButton = document.getElementById('save-csv');
 
-        calculateButton.addEventListener('click', () => {
+        // Opdater spildfaktoren, når en knap er klikket
+        const spillageButtons = document.querySelectorAll('.spillage-button');
+        spillageButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                spillageFactor = parseFloat(button.getAttribute('data-spillage'));
+                spillageButtons.forEach(b => b.classList.remove('selected')); // Reset highlighted buttons
+                button.classList.add('selected'); // Highlight selected button
+                calculate(); // Kør beregning automatisk når spild ændres
+            });
+        });
+
+        // Automatisk beregning når brugeren ændrer input
+        function calculate() {
             const height = parseFloat(heightInput.value);
             const base = parseFloat(baseInput.value);
+
+            if (!height || !base) return; // Stop hvis ikke begge værdier er indtastet
+
             const area = height * base;
+
             areaInput.value = area.toFixed(2);
-            const result = area * 65 * 1.04;
+            const result = area * 65 * (1 + spillageFactor);
             resultInput.value = result.toFixed(2);
-            const finalResult = result * 0.7 * 1.04;
+            const finalResult = result * 0.7 * (1 + spillageFactor);
             finalResultInput.value = finalResult.toFixed(2);
-            const finalResult2 = area * 17 * 1.04;
+            const finalResult2 = area * 17 * (1 + spillageFactor);
             finalResultInput2.value = finalResult2.toFixed(2);
-            const finalResult3 = area * 4 * 1.04;
+            const finalResult3 = area * 4 * (1 + spillageFactor);
             finalResultInput3.value = finalResult3.toFixed(2);
             const volume = finalResult + finalResult2 + finalResult3;
             volumeInput.value = volume.toFixed(2);
-            const weight = area * 130 * 1.04;
+            const weight = area * 130 * (1 + spillageFactor);
             weightInput.value = weight.toFixed(2);
-            const surfaceArea = area * 130 * 1.04;
+            const surfaceArea = area * 130 * (1 + spillageFactor);
             surfaceAreaInput.value = surfaceArea.toFixed(2);
-        });
+            const bindere = area * 4;
+            BindereInput.value = bindere.toFixed(2);
+        }
 
+        // Lyt på inputfelter for automatisk beregning
+        heightInput.addEventListener('input', calculate);
+        baseInput.addEventListener('input', calculate);
+
+        // Kopier resultater knap
         copyAllButton.addEventListener('click', () => {
-          const results = [
-            `Beregning af mørtelforbrug + 4% spild`,
-            `M2: ${areaInput.value}`,
-            `Halvstensmur: ${resultInput.value}`,
-            `Helstensmur: ${weightInput.value}`,
-            `Hulstensmur: ${surfaceAreaInput.value}`,
-            `Opmuring: 700/1000=0,7x${resultInput.value} x1,04 = ${finalResultInput.value} liter`,
-            `Grovpuds: 1700/100=17x${areaInput.value} x1,04 = ${finalResultInput2.value} liter`,
-            `Fugning: 400/100=4x${areaInput.value} x1,04 = ${finalResultInput3.value} liter`,
-            `Mørtelforbrug i alt: ${finalResultInput.value}+${finalResultInput2.value}+${finalResultInput3.value} = ${volumeInput.value} liter`,
-          ];
+            const results = [
+                `Beregning af mørtelforbrug med ${spillageFactor * 100}% spild`,
+                `M2: ${areaInput.value}`,
+                `Halvstensmur: 65x${areaInput.value} = ${resultInput.value}`,
+                `Helstensmur: 130x${areaInput.value} = ${weightInput.value}`,
+                `Hulmur: 130x${areaInput.value} = ${surfaceAreaInput.value}`,
+                `Opmuring: 700/100=0,7x${resultInput.value}x${(1 + spillageFactor).toFixed(2)} = ${finalResultInput.value} liter`,
+                `Grovpuds: 1700/100=17x${areaInput.value}x${(1 + spillageFactor).toFixed(2)} = ${finalResultInput2.value} liter`,
+                `Fugning: 400/100=4x${areaInput.value}x${(1 + spillageFactor).toFixed(2)} = ${finalResultInput3.value} liter`,
+                `Mørtelforbrug i alt: ${finalResultInput.value} + ${finalResultInput2.value} + ${finalResultInput3.value} = ${volumeInput.value} liter`,
+                `Bindere: ${areaInput.value} x 4 = ${BindereInput.value}`
+            ];
 
-          const copiedText = results.join('\n');
-
-          navigator.clipboard.writeText(copiedText);
-          alert('Alle resultater kopieret!');
+            const copiedText = results.join('\n');
+            navigator.clipboard.writeText(copiedText);
+            alert('Alle resultater kopieret!');
         });
 
-        const homeButton = document.querySelector('.home-button');
-        homeButton.addEventListener('click', () => {
-            window.location.href = 'Hovedside.html';
+        // Gem som CSV knap
+        saveCsvButton.addEventListener('click', () => {
+            const results = [
+                `Beregning af mørtelforbrug med ${spillageFactor * 100}% spild`,
+                `M2: ${areaInput.value}`,
+                `Halvstensmur: 65x${areaInput.value} = ${resultInput.value}`,
+                `Helstensmur: 130x${areaInput.value} = ${weightInput.value}`,
+                `Hulmur: 130x${areaInput.value} = ${surfaceAreaInput.value}`,
+                `Opmuring: 700/100=0,7x${resultInput.value}x${(1 + spillageFactor).toFixed(2)} = ${finalResultInput.value} liter`,
+                `Grovpuds: 1700/100=17x${areaInput.value}x${(1 + spillageFactor).toFixed(2)} = ${finalResultInput2.value} liter`,
+                `Fugning: 400/100=4x${areaInput.value}x${(1 + spillageFactor).toFixed(2)} = ${finalResultInput3.value} liter`,
+                `Mørtelforbrug i alt: ${finalResultInput.value} + ${finalResultInput2.value} + ${finalResultInput3.value} = ${volumeInput.value} liter`,
+                `Bindere: ${areaInput.value} x 4 = ${BindereInput.value}`
+            ];
+
+            const csvContent = "data:text/csv;charset=utf-8," + results.join("\n");
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "resultater.csv");
+            link.click();
         });
     </script>
+
 </body>
 </html>
