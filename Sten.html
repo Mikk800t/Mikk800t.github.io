@@ -219,7 +219,7 @@
     </div>
 
     <div class="home-button-container">
-        <button class="home-button">Hjem</button>
+        <button class="home-button" onclick="goHome()">Hjem</button>
     </div>
 
     <script>
@@ -286,6 +286,7 @@
         copyAllButton.addEventListener('click', () => {
             const results = [
                 `Beregning af mørtelforbrug med ${spillageFactor * 100}% spild`,
+
                 `M2: ${areaInput.value}`,
                 `Halvstensmur: 65x${areaInput.value} = ${resultInput.value}`,
                 `Helstensmur: 130x${areaInput.value} = ${weightInput.value}`,
@@ -325,6 +326,11 @@
             link.setAttribute("download", "resultater.csv");
             link.click();
         });
+
+        // Hjem-knap funktion
+        function goHome() {
+            window.location.href = "Hovedside.html"; // Naviger til hovedsiden
+        }
     </script>
 
 </body>
