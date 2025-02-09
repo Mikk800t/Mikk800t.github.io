@@ -10,28 +10,59 @@
 
     <style>
         /* Body og baggrund */
-		body {
-			font-family: 'Poppins', sans-serif;
-			background-color: #88bb92; /* Ensfarvet baggrund */
-			margin: 0;
-			padding: 0;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			color: #fbfbff;
-		}
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100%;
+            color: #0b4f6c;
+            position: relative;
+            overflow: auto; /* Sørger for, at man kan rulle */
+            flex-direction: column;
+            zoom: 0.6; /* Zoomer endnu mere ud */
+        }
 
+        /* Baggrundsbillede */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('5.jpg') center/cover no-repeat;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        /* Gradient-overlay */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 100%, white, #0f425f 50%, #0f425f 75%, #0f425f 75%);
+            z-index: 2;
+            mix-blend-mode: screen;
+        }
 
         /* Container for inputfelter og resultater */
         .container {
-            background-color: #fbfbff;
-            padding: 25px 40px;
+            position: relative;
+            z-index: 3;
+            background-color: white;
+            padding: 15px 30px; /* Mindre padding */
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 700px;
-            margin: auto;
+            max-width: 820px;
+            margin: 20px;
+            box-sizing: border-box;
         }
 
         h1 {
@@ -40,15 +71,18 @@
             margin-bottom: 30px;
             color: #0b4f6c;
             font-weight: 600;
+            font-family: Impact, sans-serif;
         }
 
         /* Label og inputfelter */
         label {
             font-size: 18px;
+			width: 85%;
             margin-bottom: 8px;
             display: block;
             color: #0b4f6c;
             font-weight: 500;
+			
         }
 
         input[type="number"], 
@@ -67,22 +101,24 @@
         button:focus {
             outline: none;
             border-color: #01baef;
+			width: 85%;
         }
 
         input[readonly] {
             background-color: #f1f1f1;
+			width: 85%;
         }
 
         /* Knapper */
         button {
-            background-color: #20bf55;
+            background-color: #0f425f;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #0b4f6c;
+            background-color: #354c7c;
         }
 
         /* Spild valg knapper */
@@ -105,18 +141,19 @@
         }
 
         .spillage-button:hover {
-            background-color: #94ddbc;
+            background-color: #354c7c;
             color: white;
         }
 
         .spillage-button.selected {
-            background-color: #94ddbc;
+            background-color: #354c7c;
             color: #fbfbff;
         }
 
         /* Resultatfelter */
         .result-field {
             margin-top: 15px;
+			width: 85%;
         }
 
         .result-field label {
@@ -154,10 +191,10 @@
 
         <!-- Input felter -->
         <label for="height">Højde:</label>
-        <input type="number" id="height" name="height" placeholder="Indtast højde">
+        <input type="number" id="height" name="height" placeholder="Indtast højde eksembel 1.658 meter eller 2.000 meter">
 
         <label for="base">Bredde:</label>
-        <input type="number" id="base" name="base" placeholder="Indtast bredde">
+        <input type="number" id="base" name="base" placeholder="Indtast bredde eksembel 1.658 meter eller 2.000 meter">
 
         <!-- Spildvalg knapper -->
         <div class="spillage-options">
