@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Measurement Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #555BFF;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #555BFF;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #322C58;
+    }
+
+    .result {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border: 1px solid #ddd;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Måltabel</h1>
+
+    <!-- Pilar and stone size conversion section -->
+    <div class="section">
+      <h2>Stenmål regner</h2>
+      <label for="stoneNumber">Indtast sten antal (eksembel 2, 2.5, etc.):</label>
+      <input type="number" id="stoneNumber" placeholder="e.g., 2">
+      <button onclick="calculateStone()">Beregn</button>
+      <div id="stoneResult" class="result"></div>
+    </div>
+
+    <!-- Skiftemål (Shift size) conversion section -->
+    <div class="section">
+      <h2>Beregn Skiftemål</h2>
+      <label for="shiftNumber">Indtast Skiftemål (1 to 100):</label>
+      <input type="number" id="shiftNumber" placeholder="e.g., 10" min="1" max="100">
+      <button onclick="calculateShift()">Beregn</button>
+      <div id="shiftResult" class="result"></div>
+    </div>
+
+    <!-- Mål til Skifte conversion section -->
+    <div class="section">
+      <h2>Beregn Skiftemål ved at indtaste Mål</h2>
+      <label for="targetMeasure">Indtast mål i (mm):</label>
+      <input type="number" id="targetMeasure" placeholder="e.g., 2000">
+      <button onclick="calculateNearestShift()">Beregn</button>
+      <div id="nearestShiftResult" class="result"></div>
+    </div>
+
+  </div>
+
+  <script>
+    // Stone size table (Pillar and Stone Sizes)
+    const stoneSizes = {
+      1: { stenmål: 240, pillemål: 228, åbningsmål: 252 },
+      1.25: { stenmål: 300, pillemål: 288, åbningsmål: 312 },
+      1.5: { stenmål: 360, pillemål: 348, åbningsmål: 372 },
+      1.75: { stenmål: 420, pillemål: 408, åbningsmål: 432 },
+      2: { stenmål: 480, pillemål: 468, åbningsmål: 492 },
+      2.25: { stenmål: 540, pillemål: 528, åbningsmål: 552 },
+      2.5: { stenmål: 600, pillemål: 588, åbningsmål: 612 },
+      2.75: { stenmål: 660, pillemål: 648, åbningsmål: 672 },
+      3: { stenmål: 720, pillemål: 708, åbningsmål: 732 },
+      3.25: { stenmål: 780, pillemål: 768, åbningsmål: 792 },
+      3.5: { stenmål: 840, pillemål: 828, åbningsmål: 852 },
+      3.75: { stenmål: 900, pillemål: 888, åbningsmål: 912 },
+      4: { stenmål: 960, pillemål: 948, åbningsmål: 972 },
+      4.25: { stenmål: 1020, pillemål: 1008, åbningsmål: 1032 },
+      4.5: { stenmål: 1080, pillemål: 1068, åbningsmål: 1092 },
+      4.75: { stenmål: 1140, pillemål: 1128, åbningsmål: 1152 },
+      5: { stenmål: 1200, pillemål: 1188, åbningsmål: 1212 },
+      // Add more as needed up to 10
+    };
+
+    // Skiftemål (Shift sizes) table
+    const shiftSizes = {
+      1: 67,
+      2: 134,
+      3: 200,
+      4: 267,
+      5: 334,
+      6: 400,
+      7: 467,
+      8: 534,
+      9: 600,
+      10: 667,
+      11: 734,
+      12: 800,
+      13: 867,
+      14: 934,
+      15: 1000,
+      16: 1067,
+      17: 1134,
+      18: 1200,
+      19: 1267,
+      20: 1334,
+      21: 1400,
+      22: 1467,
+      23: 1534,
+      24: 1600,
+      25: 1667,
+      26: 1734,
+      27: 1800,
+      28: 1867,
+      29: 1934,
+      30: 2000,
+      31: 2067,
+      32: 2134,
+      33: 2200,
+      34: 2267,
+      35: 2334,
+      36: 2400,
+      37: 2467,
+      38: 2534,
+      39: 2600,
+      40: 2667,
+      41: 2734,
+      42: 2800,
+      43: 2867,
+      44: 2934,
+      45: 3000,
+      46: 3067,
+      47: 3134,
+      48: 3200,
+      49: 3267,
+      50: 3334,
+      51: 3400,
+      52: 3467,
+      53: 3534,
+      54: 3600,
+      55: 3667,
+      56: 3734,
+      57: 3800,
+      58: 3867,
+      59: 3934,
+      60: 4000,
+      61: 4067,
+      62: 4134,
+      63: 4200,
+      64: 4267,
+      65: 4334,
+      66: 4400,
+      67: 4467,
+      68: 4534,
+      69: 4600,
+      70: 4667,
+      71: 4734,
+      72: 4800,
+      73: 4867,
+      74: 4934,
+      75: 5000,
+      76: 5067,
+      77: 5134,
+      78: 5200,
+      79: 5267,
+      80: 5334,
+      81: 5400,
+      82: 5467,
+      83: 5534,
+      84: 5600,
+      85: 5667,
+      86: 5734,
+      87: 5800,
+      88: 5867,
+      89: 5934,
+      90: 6000,
+      91: 6067,
+      92: 6134,
+      93: 6200,
+      94: 6267,
+      95: 6334,
+      96: 6400,
+      97: 6467,
+      98: 6534,
+      99: 6600,
+      100: 6667
+    };
+
+    // Function to calculate nearest shift for a given measurement
+    function calculateNearestShift() {
+      let targetMeasure = parseInt(document.getElementById("targetMeasure").value);
+      let closestShift = null;
+      let minDifference = Infinity;
+
+      for (let shift in shiftSizes) {
+        let diff = Math.abs(shiftSizes[shift] - targetMeasure);
+        if (diff < minDifference) {
+          minDifference = diff;
+          closestShift = shift;
+        }
+      }
+
+      let resultElement = document.getElementById("nearestShiftResult");
+      if (closestShift !== null) {
+        resultElement.innerHTML = `
+          <strong>Nearest Skiftemål for ${targetMeasure} mm:</strong><br>
+          Skifter: ${closestShift}<br>
+          Mål: ${shiftSizes[closestShift]} mm
+        `;
+      } else {
+        resultElement.innerHTML = "Invalid target measure. Please enter a valid number.";
+      }
+    }
+
+    // Function to calculate stone sizes
+    function calculateStone() {
+      let stoneNumber = parseFloat(document.getElementById("stoneNumber").value);
+      let resultElement = document.getElementById("stoneResult");
+      
+      if (stoneSizes[stoneNumber]) {
+        let sizes = stoneSizes[stoneNumber];
+        resultElement.innerHTML = `
+          <strong>Stone Sizes for Pilar ${stoneNumber}:</strong><br>
+          Stenmål: ${sizes.stenmål} mm<br>
+          Pillemål: ${sizes.pillemål} mm<br>
+          Åbningsmål: ${sizes.åbningsmål} mm
+        `;
+      } else {
+        resultElement.innerHTML = "Invalid stone number. Please enter a valid number.";
+      }
+    }
+
+    // Function to calculate shift size
+    function calculateShift() {
+      let shiftNumber = parseInt(document.getElementById("shiftNumber").value);
+      let resultElement = document.getElementById("shiftResult");
+      
+      if (shiftSizes[shiftNumber]) {
+        let shiftSize = shiftSizes[shiftNumber];
+        resultElement.innerHTML = `
+          <strong>Shift Size for Skifter ${shiftNumber}:</strong><br>
+          Mål: ${shiftSize} mm
+        `;
+      } else {
+        resultElement.innerHTML = "Invalid skifter number. Please enter a number between 1 and 100.";
+      }
+    }
+  </script>
+</body>
+</html>
