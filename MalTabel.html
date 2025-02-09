@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Measurement Converter</title>
+  <title>Måltabel</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -64,43 +64,59 @@
       margin-bottom: 40px;
     }
 
+    .back-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: blue;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    
+    .back-btn:hover {
+      background-color: darkblue;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Måltabel</h1>
 
-    <!-- Pilar and stone size conversion section -->
+    <!-- Sektion for stenstørrelse beregning -->
     <div class="section">
-      <h2>Stenmål regner</h2>
-      <label for="stoneNumber">Indtast sten antal (eksembel 2, 2.5, etc.):</label>
-      <input type="number" id="stoneNumber" placeholder="e.g., 2">
+      <h2>Stenmål beregner</h2>
+      <label for="stoneNumber">Indtast sten størrelse (f.eks. 2, 2.5, etc.):</label>
+      <input type="number" id="stoneNumber" placeholder="f.eks. 2">
       <button onclick="calculateStone()">Beregn</button>
       <div id="stoneResult" class="result"></div>
     </div>
 
-    <!-- Skiftemål (Shift size) conversion section -->
+    <!-- Sektion for skiftemål beregning -->
     <div class="section">
       <h2>Beregn Skiftemål</h2>
-      <label for="shiftNumber">Indtast Skiftemål (1 to 100):</label>
-      <input type="number" id="shiftNumber" placeholder="e.g., 10" min="1" max="100">
+      <label for="shiftNumber">Indtast Skiftemål (1 til 100):</label>
+      <input type="number" id="shiftNumber" placeholder="f.eks. 10" min="1" max="100">
       <button onclick="calculateShift()">Beregn</button>
       <div id="shiftResult" class="result"></div>
     </div>
 
-    <!-- Mål til Skifte conversion section -->
+    <!-- Sektion for beregning af nærmeste skiftemål -->
     <div class="section">
       <h2>Beregn Skiftemål ved at indtaste Mål</h2>
       <label for="targetMeasure">Indtast mål i (mm):</label>
-      <input type="number" id="targetMeasure" placeholder="e.g., 2000">
+      <input type="number" id="targetMeasure" placeholder="f.eks. 2000">
       <button onclick="calculateNearestShift()">Beregn</button>
       <div id="nearestShiftResult" class="result"></div>
     </div>
 
   </div>
 
+  <a href="Hovedside.html" class="back-btn">Tilbage</a>
+
   <script>
-    // Stone size table (Pillar and Stone Sizes)
+    // Stenstørrelser (Pillar and Stone Sizes)
     const stoneSizes = {
       1: { stenmål: 240, pillemål: 228, åbningsmål: 252 },
       1.25: { stenmål: 300, pillemål: 288, åbningsmål: 312 },
@@ -119,10 +135,9 @@
       4.5: { stenmål: 1080, pillemål: 1068, åbningsmål: 1092 },
       4.75: { stenmål: 1140, pillemål: 1128, åbningsmål: 1152 },
       5: { stenmål: 1200, pillemål: 1188, åbningsmål: 1212 },
-      // Add more as needed up to 10
     };
 
-    // Skiftemål (Shift sizes) table
+    // Skiftemål (Shift sizes) tabel
     const shiftSizes = {
       1: 67,
       2: 134,
@@ -226,7 +241,7 @@
       100: 6667
     };
 
-    // Function to calculate nearest shift for a given measurement
+    // Funktion til beregning af nærmeste skiftemål for et givet mål
     function calculateNearestShift() {
       let targetMeasure = parseInt(document.getElementById("targetMeasure").value);
       let closestShift = null;
@@ -243,16 +258,16 @@
       let resultElement = document.getElementById("nearestShiftResult");
       if (closestShift !== null) {
         resultElement.innerHTML = `
-          <strong>Nearest Skiftemål for ${targetMeasure} mm:</strong><br>
+          <strong>Nærmeste Skiftemål for ${targetMeasure} mm:</strong><br>
           Skifter: ${closestShift}<br>
           Mål: ${shiftSizes[closestShift]} mm
         `;
       } else {
-        resultElement.innerHTML = "Invalid target measure. Please enter a valid number.";
+        resultElement.innerHTML = "Ugyldigt mål. Indtast venligst et gyldigt nummer.";
       }
     }
 
-    // Function to calculate stone sizes
+    // Funktion til beregning af stenstørrelser
     function calculateStone() {
       let stoneNumber = parseFloat(document.getElementById("stoneNumber").value);
       let resultElement = document.getElementById("stoneResult");
@@ -260,29 +275,28 @@
       if (stoneSizes[stoneNumber]) {
         let sizes = stoneSizes[stoneNumber];
         resultElement.innerHTML = `
-          <strong>Stone Sizes for Pilar ${stoneNumber}:</strong><br>
+          <strong>Stenmål for Pilar ${stoneNumber}:</strong><br>
           Stenmål: ${sizes.stenmål} mm<br>
           Pillemål: ${sizes.pillemål} mm<br>
           Åbningsmål: ${sizes.åbningsmål} mm
         `;
       } else {
-        resultElement.innerHTML = "Invalid stone number. Please enter a valid number.";
+        resultElement.innerHTML = "Ugyldig stenstørrelse. Indtast venligst en gyldig værdi.";
       }
     }
 
-    // Function to calculate shift size
+    // Funktion til beregning af skiftemål
     function calculateShift() {
       let shiftNumber = parseInt(document.getElementById("shiftNumber").value);
       let resultElement = document.getElementById("shiftResult");
-      
+
       if (shiftSizes[shiftNumber]) {
-        let shiftSize = shiftSizes[shiftNumber];
         resultElement.innerHTML = `
-          <strong>Shift Size for Skifter ${shiftNumber}:</strong><br>
-          Mål: ${shiftSize} mm
+          <strong>Skiftemål for ${shiftNumber}:</strong><br>
+          Skiftemål: ${shiftSizes[shiftNumber]} mm
         `;
       } else {
-        resultElement.innerHTML = "Invalid skifter number. Please enter a number between 1 and 100.";
+        resultElement.innerHTML = "Ugyldigt skiftemål. Indtast venligst en gyldig værdi.";
       }
     }
   </script>
