@@ -1,0 +1,377 @@
+/* Global styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* A very light grey, almost white */
+    color: #212529; /* Darker text color for better contrast */
+    line-height: 1.7; /* Slightly increased line height */
+    font-size: 16px; /* Base font size */
+}
+
+.home-page-background {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff; /* White text on gradient background */
+}
+
+.home-page-background .container {
+    background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white for container on home */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 30px; /* More padding for home page container */
+    margin-top: 50px; /* Push it down a bit */
+}
+
+.home-page-background h1.main-title {
+    color: #ffffff;
+    font-weight: 700; /* Bolder title */
+    font-size: 2.8em; /* Larger title */
+    margin-bottom: 0.2em;
+}
+
+.home-page-background .subtitle {
+    color: #e0e0e0; /* Lighter subtitle text */
+    font-size: 1.1em;
+    margin-bottom: 2em;
+}
+
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 30px auto; /* Increased top/bottom margin */
+    padding: 25px; /* Slightly increased padding */
+    background-color: #ffffff; /* White background for standard containers */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+}
+
+h1, h2, h3 {
+    color: #005086; /* A slightly more muted primary color */
+    margin-bottom: 0.75em; /* Increased margin */
+    font-weight: 600; /* Default bold for headings */
+}
+
+h1 { font-size: 2.2em; } /* Larger h1 */
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.4em; }
+
+/* Buttons: General styling for <button> and <a> tags with class .button */
+.button, button, input[type="button"], input[type="submit"] {
+    background-color: #0069d9; /* A more standard blue */
+    color: white;
+    padding: 12px 20px; /* Increased padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em; /* Relative font size */
+    font-weight: 600; /* Bolder button text */
+    text-decoration: none; /* Remove underline from <a> tags */
+    display: inline-block; /* Proper display for <a> tags */
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease; /* Smoother transition */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.button:hover, button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: white; /* Ensure text color stays white */
+    transform: translateY(-1px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.button:active, button:active, input[type="button"]:active, input[type="submit"]:active {
+    transform: translateY(0px); /* Pressed effect */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+/* Links */
+a {
+    color: #0069d9; /* Consistent link color */
+    text-decoration: none;
+}
+
+a:not(.button):hover { /* Ensure non-button links get underline on hover */
+    text-decoration: underline;
+    color: #004085; /* Darker shade for hover on text links */
+}
+
+/* Form elements */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600; /* Bolder labels */
+    color: #495057; /* Softer black for labels */
+}
+
+input[type="number"],
+input[type="text"],
+select {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    margin-bottom: 20px; /* Increased margin */
+    border: 1px solid #ced4da; /* Standard border color */
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+    border-color: #80bdff; /* Blue border on focus */
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap-like focus shadow */
+}
+
+input[readonly] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+    opacity: 0.7; /* Make it look more disabled */
+}
+
+/* Navigation and Back buttons */
+.home-button, .back-button { /* These are <a> tags styled as buttons */
+    display: inline-block;
+    margin-top: 25px; /* Increased margin */
+    background-color: #218838; /* A different green */
+    /* Inherits .button styles for padding, color, etc. */
+}
+
+.home-button:hover, .back-button:hover {
+    background-color: #19692c; /* Darker green on hover */
+}
+
+/* Utility classes */
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 1rem; }
+/* Add more margin utilities if needed e.g. .mt-2, .mb-2 */
+
+/* Styles for navigation buttons specifically on Hovedside.html */
+.nav-button {
+    display: block; /* Make them full-width within their alignment context */
+    width: 280px; /* Wider buttons */
+    margin: 25px auto; /* More vertical spacing */
+    padding: 18px; /* More padding */
+    font-size: 1.25em; /* Larger font */
+    font-weight: 600;
+    /* background-color: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff; */ /* Alternative style for home page buttons if desired */
+}
+
+.home-page-background .nav-button { /* Specific style for nav buttons on home page */
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+}
+
+.home-page-background .nav-button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Style for info boxes on other pages (Fliser, Sten) */
+.info-box {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #e9ecef; /* Light grey background */
+    border: 1px solid #dee2e6; /* Subtle border */
+    font-size: 0.95em;
+}
+.info-box p {
+    margin: 5px 0 10px;
+}
+.info-box strong {
+    color: #005086;
+}
+
+/* Result fields styling */
+.result-field {
+    margin-bottom: 15px;
+}
+.result-field label {
+    font-size: 0.9em;
+    color: #555;
+}
+.result-field input[readonly] {
+    font-weight: bold;
+    color: #005086; /* Match heading color for emphasis */
+}
+
+/* Page specific background for Fliser.html */
+body.fliser-page-background {
+    background: url('../55.jpg') center/cover no-repeat fixed; /* Added fixed for better parallax-like effect */
+    position: relative;
+    z-index: 0; /* Ensure body is behind pseudo-elements */
+}
+
+body.fliser-page-background::before {
+    content: "";
+    position: fixed; /* Fixed positioning for overlay to cover viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4); /* Light overlay to improve readability */
+    z-index: -2; /* Behind content, above absolute background image if it wasn't fixed */
+}
+
+body.fliser-page-background::after { /* Original gradient, adjusted to be less overpowering */
+    content: "";
+    position: fixed; /* Fixed positioning for overlay */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 100%, rgba(255,255,255,0.1), rgba(79,79,219,0.2) 50%, rgba(79,79,219,0.4) 75%);
+    z-index: -1; /* Behind content but above ::before if needed, or above body background */
+    mix-blend-mode: screen;
+}
+
+/* Ensure container on this page has a background to be readable over the body background */
+.fliser-page-background .container {
+    background-color: rgba(255, 255, 255, 0.92); /* Slightly more opaque for better readability */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25); /* Softer shadow, matching home page's feel */
+}
+
+/* Page specific background for Sten.html */
+body.sten-page-background {
+    background: url('../5.jpg') center/cover no-repeat fixed;
+    position: relative;
+    z-index: 0;
+}
+
+body.sten-page-background::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3); /* Light overlay from original */
+    z-index: -2;
+}
+
+body.sten-page-background::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 100%, rgba(255,255,255,0.1), rgba(15,66,95,0.3) 50%, rgba(15,66,95,0.5) 75%); /* Adjusted gradient from original */
+    z-index: -1;
+    mix-blend-mode: screen;
+}
+
+.sten-page-background .container {
+    background-color: rgba(255, 255, 255, 0.93); /* Slightly more opaque */
+    max-width: 820px; /* As per original specific style */
+    box-shadow: 0 8px 32px 0 rgba(15, 66, 95, 0.2); /* Shadow themed to background */
+}
+
+/* Spillage buttons styling within Sten page */
+.sten-page-background .spillage-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px; /* Reduced top margin if label is present */
+    margin-bottom: 25px;
+}
+
+.sten-page-background .spillage-button {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 12px; /* Adjusted padding */
+    width: 23%; /* Allow for a bit of space */
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    text-align: center;
+}
+
+.sten-page-background .spillage-button:hover {
+    background-color: #005086; /* Darker primary color */
+    color: white;
+    border-color: #003c65;
+}
+
+.sten-page-background .spillage-button.selected {
+    background-color: #0069d9; /* Primary button color */
+    color: white;
+    border-color: #0056b3; /* Darker border for selected */
+    font-weight: 600;
+}
+
+/* MalTabel.html specific styles */
+body.maltabel-page .container {
+    max-width: 700px; /* Optimal width for this page's content */
+}
+
+.maltabel-page .section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #e0e0e0; /* Lighter border */
+    border-radius: 8px; /* Match global container radius */
+    background-color: #fdfdfd; /* Very slightly off-white, cleaner than default body */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow for sections */
+}
+
+.maltabel-page .section h2 {
+    margin-top: 0;
+    margin-bottom: 10px; /* Space below h2 */
+    font-size: 1.6em; /* Slightly smaller h2 for these sections */
+    border-bottom: 1px solid #eee; /* Separator line */
+    padding-bottom: 10px; /* Space for the line */
+}
+
+.maltabel-page .section p em { /* Styling for the descriptive paragraphs */
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.maltabel-page .result {
+    background-color: #e9ecef; /* Standard result background */
+    padding: 15px;
+    border: 1px solid #ced4da; /* Standard result border */
+    border-radius: 4px; /* Match input field radius */
+    margin-top: 20px; /* Space above result div */
+    font-size: 1em;
+    line-height: 1.5;
+    color: #212529; /* Ensure good text color */
+}
+
+.maltabel-page .result strong { /* Make the "label" part of the result bold */
+    color: #005086; /* Primary color for emphasis */
+}
+
+.copy-feedback {
+    display: inline-block; /* Changed to inline-block to sit next to buttons */
+    margin-left: 15px;
+    padding: 6px 12px; /* Adjusted padding */
+    background-color: #218838; /* Slightly different green from home/back buttons */
+    color: white;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    transform: translateY(10px); /* Start slightly lower */
+}
+
+.copy-feedback.show {
+    opacity: 1;
+    transform: translateY(0); /* Animate to original position */
+}
