@@ -1,0 +1,149 @@
+// Data for calculations
+const stoneSizes = {
+    1: { stenmål: 240, pillemål: 228, åbningsmål: 252 },
+    1.25: { stenmål: 300, pillemål: 288, åbningsmål: 312 },
+    1.5: { stenmål: 360, pillemål: 348, åbningsmål: 372 },
+    1.75: { stenmål: 420, pillemål: 408, åbningsmål: 432 },
+    2: { stenmål: 480, pillemål: 468, åbningsmål: 492 },
+    2.25: { stenmål: 540, pillemål: 528, åbningsmål: 552 },
+    2.5: { stenmål: 600, pillemål: 588, åbningsmål: 612 },
+    2.75: { stenmål: 660, pillemål: 648, åbningsmål: 672 },
+    3: { stenmål: 720, pillemål: 708, åbningsmål: 732 },
+    3.25: { stenmål: 780, pillemål: 768, åbningsmål: 792 },
+    3.5: { stenmål: 840, pillemål: 828, åbningsmål: 852 },
+    3.75: { stenmål: 900, pillemål: 888, åbningsmål: 912 },
+    4: { stenmål: 960, pillemål: 948, åbningsmål: 972 },
+    4.25: { stenmål: 1020, pillemål: 1008, åbningsmål: 1032 },
+    4.5: { stenmål: 1080, pillemål: 1068, åbningsmål: 1092 },
+    4.75: { stenmål: 1140, pillemål: 1128, åbningsmål: 1152 },
+    5: { stenmål: 1200, pillemål: 1188, åbningsmål: 1212 },
+};
+
+const shiftSizes = {
+    1: 67, 2: 134, 3: 200, 4: 267, 5: 334, 6: 400, 7: 467, 8: 534, 9: 600, 10: 667,
+    11: 734, 12: 800, 13: 867, 14: 934, 15: 1000, 16: 1067, 17: 1134, 18: 1200, 19: 1267, 20: 1334,
+    21: 1400, 22: 1467, 23: 1534, 24: 1600, 25: 1667, 26: 1734, 27: 1800, 28: 1867, 29: 1934, 30: 2000,
+    31: 2067, 32: 2134, 33: 2200, 34: 2267, 35: 2334, 36: 2400, 37: 2467, 38: 2534, 39: 2600, 40: 2667,
+    41: 2734, 42: 2800, 43: 2867, 44: 2934, 45: 3000, 46: 3067, 47: 3134, 48: 3200, 49: 3267, 50: 3334,
+    51: 3400, 52: 3467, 53: 3534, 54: 3600, 55: 3667, 56: 3734, 57: 3800, 58: 3867, 59: 3934, 60: 4000,
+    61: 4067, 62: 4134, 63: 4200, 64: 4267, 65: 4334, 66: 4400, 67: 4467, 68: 4534, 69: 4600, 70: 4667,
+    71: 4734, 72: 4800, 73: 4867, 74: 4934, 75: 5000, 76: 5067, 77: 5134, 78: 5200, 79: 5267, 80: 5334,
+    81: 5400, 82: 5467, 83: 5534, 84: 5600, 85: 5667, 86: 5734, 87: 5800, 88: 5867, 89: 5934, 90: 6000,
+    91: 6067, 92: 6134, 93: 6200, 94: 6267, 95: 6334, 96: 6400, 97: 6467, 98: 6534, 99: 6600, 100: 6667
+};
+
+// DOM Elements
+const stoneNumberInput = document.getElementById("stoneNumber");
+const stoneResultDiv = document.getElementById("stoneResult");
+const calculateStoneButton = document.getElementById("calculateStoneButton"); // Added ID to button in HTML
+
+const shiftNumberInput = document.getElementById("shiftNumber");
+const shiftResultDiv = document.getElementById("shiftResult");
+const calculateShiftButton = document.getElementById("calculateShiftButton"); // Added ID to button in HTML
+
+const targetMeasureInput = document.getElementById("targetMeasure");
+const nearestShiftResultDiv = document.getElementById("nearestShiftResult");
+const calculateNearestShiftButton = document.getElementById("calculateNearestShiftButton"); // Added ID to button in HTML
+
+// Functions
+function calculateStoneDimensions() {
+    const stoneNumber = parseFloat(stoneNumberInput.value);
+    if (stoneSizes[stoneNumber]) {
+        const sizes = stoneSizes[stoneNumber];
+        stoneResultDiv.innerHTML = `
+            <strong>Stenmål for Pilar ${stoneNumber}:</strong><br>
+            Stenmål: ${sizes.stenmål} mm<br>
+            Pillemål: ${sizes.pillemål} mm<br>
+            Åbningsmål: ${sizes.åbningsmål} mm
+        `;
+    } else {
+        stoneResultDiv.innerHTML = "Ugyldig stenstørrelse. Vælg venligst en gyldig værdi fra listen eller beskrivelsen.";
+    }
+}
+
+function calculateShiftMeasurement() {
+    const shiftNumber = parseInt(shiftNumberInput.value);
+    if (shiftSizes[shiftNumber]) {
+        shiftResultDiv.innerHTML = `
+            <strong>Skiftemål for ${shiftNumber} skifter:</strong><br>
+            Mål: ${shiftSizes[shiftNumber]} mm
+        `;
+    } else {
+        shiftResultDiv.innerHTML = "Ugyldigt skiftetal. Indtast en værdi mellem 1 og 100.";
+    }
+}
+
+function findNearestShift() {
+    const targetMeasure = parseInt(targetMeasureInput.value);
+    if (isNaN(targetMeasure) || targetMeasure <=0) {
+        nearestShiftResultDiv.innerHTML = "Indtast venligst et gyldigt positivt mål i mm.";
+        return;
+    }
+
+    let closestShift = null;
+    let minDifference = Infinity;
+
+    for (const shift in shiftSizes) {
+        const difference = Math.abs(shiftSizes[shift] - targetMeasure);
+        if (difference < minDifference) {
+            minDifference = difference;
+            closestShift = shift;
+        } else if (difference === minDifference) {
+            // Optional: if two shifts are equally close, you might prefer the smaller or larger one.
+            // This implementation picks the first one encountered or the one with a smaller shift number if keys are ordered.
+            // For simplicity, we'll stick to the first one found that's closest.
+        }
+    }
+
+    if (closestShift !== null) {
+        nearestShiftResultDiv.innerHTML = `
+            <strong>Nærmeste Skiftemål for ${targetMeasure} mm:</strong><br>
+            Antal Skifter: ${closestShift}<br>
+            Resulterende Mål: ${shiftSizes[closestShift]} mm (Forskel: ${minDifference} mm)
+        `;
+    } else {
+        // This case should ideally not be reached if shiftSizes is not empty and targetMeasure is a number.
+        nearestShiftResultDiv.innerHTML = "Kunne ikke finde nærmeste skiftemål. Tjek input.";
+    }
+}
+
+// Event Listeners
+if (calculateStoneButton) {
+    calculateStoneButton.addEventListener('click', calculateStoneDimensions);
+}
+// Allow Enter key to trigger calculation for stone number
+if (stoneNumberInput) {
+    stoneNumberInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            calculateStoneDimensions();
+        }
+    });
+}
+
+
+if (calculateShiftButton) {
+    calculateShiftButton.addEventListener('click', calculateShiftMeasurement);
+}
+if (shiftNumberInput) {
+    shiftNumberInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            calculateShiftMeasurement();
+        }
+    });
+}
+
+if (calculateNearestShiftButton) {
+    calculateNearestShiftButton.addEventListener('click', findNearestShift);
+}
+if (targetMeasureInput) {
+    targetMeasureInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            findNearestShift();
+        }
+    });
+}
+
+// Go Home function
+function goHome() {
+    window.location.href = "Hovedside.html";
+}
